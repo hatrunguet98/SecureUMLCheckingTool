@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Policys>
+    <Rule RuleId="rule1" Effect="Permit">
+        <Role>ROLE_DOCTOR</Role>
+        <Action>READ</Action>
+        <Resource>PatientRecord</Resource>
+        <Condition>
+            <Restriction>subject.employee.id == resource.employee.id</Restriction>
+        </Condition>
+    </Rule>
+    <Rule RuleId="rule2" Effect="Permit">
+        <Role>ROLE_DOCTOR</Role>
+        <Action>UPDATE</Action>
+        <Resource>PatientRecord</Resource>
+        <Condition>
+            <Restriction>subject.employee.id == resource.employee.id</Restriction>
+        </Condition>
+    </Rule>
+    <Rule RuleId="rule3" Effect="Permit">
+        <Role>ROLE_RECEPTIONIST</Role>
+        <Action>CREATE</Action>
+        <Resource>PatientRecord</Resource>
+        <Condition>
+            <Restriction>True</Restriction>
+        </Condition>
+    </Rule>
+    <Rule RuleId="rule4" Effect="Permit">
+        <Role>ROLE_PATIENT</Role>
+        <Action>READ</Action>
+        <Resource>PatientRecord</Resource>
+        <Condition>
+            <Restriction>subject.patient.id == resource.id</Restriction>
+        </Condition>
+    </Rule>
+    <Rule RuleId="rule5" Effect="Permit">
+        <Role>ROLE_PATIENT</Role>
+        <Action>UPDATE</Action>
+        <Resource>PatientRecord</Resource>
+        <Condition>
+            <Restriction>subject.patient.id == resource.id</Restriction>
+        </Condition>
+    </Rule>
+</Policys>
