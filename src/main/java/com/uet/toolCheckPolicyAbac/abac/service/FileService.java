@@ -5,6 +5,8 @@
  */
 package com.uet.toolCheckPolicyAbac.abac.service;
 
+import com.uet.toolCheckPolicyAbac.abac.model.RolePermisson;
+
 import javax.swing.*;
 import java.util.List;
 import java.io.BufferedReader;
@@ -82,5 +84,28 @@ public class FileService {
                     JOptionPane.ERROR_MESSAGE);
         }
         return new ArrayList<>();
+    }
+
+    public ArrayList<RolePermisson> getContentCSVRolePermission(File file) {
+        ArrayList<RolePermisson> rolePermissionsList = new ArrayList<>();
+        try {
+            Reader fileReader = new FileReader(file);
+            BufferedReader bufReader = new BufferedReader(fileReader);
+            StringBuilder sb = new StringBuilder();
+            String splitBy = ",";
+            String line = bufReader.readLine();
+            while ((line = bufReader.readLine()) != null) {
+                String[] userInfo = line.split(splitBy);    // use comma as separator
+                rolePermissionsList.add(new RolePermisson(userInfo[0], userInfo[1]));
+            }
+            bufReader.close();
+            return rolePermissionsList;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "Can not read file.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        return rolePermissionsList;
     }
 }
