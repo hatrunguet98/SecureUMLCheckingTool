@@ -53,7 +53,7 @@ public class SourceCodeService {
             String policyContents = fileService.getContentFiles(policyFilePathList);
             List<MethodDeclaration> methodDeclarationList = jDTParserService.getMethodDeclaration(policyContents);
             for (MethodDeclaration methodDeclaration : methodDeclarationList) {
-                String api = jDTParserService.getAnnotationValue(methodDeclaration, "Mapping");
+                String api = jDTParserService.getAnnotationValue(methodDeclaration, "Mapping").replace("\")", "/\")");
                 String per = jDTParserService.getAnnotationValue(methodDeclaration, "PreAuthorize");
                 String condition = jDTParserService.getStatementValue(methodDeclaration, "checkPermission");
                 String resource = this.getValueAnnotaition(api, getValueApi, 1);
@@ -61,7 +61,9 @@ public class SourceCodeService {
                 String action = this.getValueAnnotaition(api, getValueApi, 2);
                 String role = "ROLE_" + this.getValueAnnotaition(per, getValueRole, 1);
                 if (resource != null && action != null && role != null) {
-                    policyRulerList.add(new PolicyRuler(role, action, resource, conditionValue.replaceAll("&&", "&")));
+                    PolicyRuler policyRuler = new PolicyRuler(role, action, resource, conditionValue.replaceAll("&&", "&"));
+                    policyRulerList.add(policyRuler);
+                    System.out.println(policyRuler.toString());
                 }
             }
             return policyRulerList;

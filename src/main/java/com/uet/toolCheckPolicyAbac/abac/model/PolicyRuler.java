@@ -91,4 +91,17 @@ public class PolicyRuler {
     public void setAction(String action) {
         this.action = action;
     }
+
+    @Override
+    public String toString() {
+        return "PolicyRuler{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", target='" + target + '\'' +
+                ", condition='" + condition + '\'' +
+                ", resource='" + resource + '\'' +
+                ", role='" + role + '\'' +
+                ", action='" + action + '\'' +
+                '}';
+    }
 }
